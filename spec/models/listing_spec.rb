@@ -221,6 +221,8 @@ describe Listing do
 
       Reservation.create(review: first_review, listing: listing)
       Reservation.create(review: second_review, listing: listing)
+
+      # binding.pry
       
       expect(listing.average_review_rating).to eq(1.5)
     end

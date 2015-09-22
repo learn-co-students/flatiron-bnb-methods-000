@@ -41,6 +41,7 @@ describe Review do
       new_res = Reservation.create(checkin: '2014-08-01', checkout: Date.today + 1, listing_id: 1, guest_id: 5, :status => "accepted")
       res_not_accepted = Review.create(description: "Hi!", rating: 3, guest_id: User.find_by(id: 5).id, reservation_id: res.id)
       res_not_passed = Review.create(description: "Hi!", rating: 3, guest_id: User.find_by(id: 5).id, reservation_id: new_res.id)
+      # binding.pry
       expect(no_res).to_not be_valid
       expect(res_not_accepted).to_not be_valid
       expect(res_not_passed).to_not be_valid
