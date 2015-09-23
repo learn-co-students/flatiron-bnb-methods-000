@@ -27,12 +27,17 @@ class Neighborhood < ActiveRecord::Base
   def self.most_res
     hash = {}
     all.each do |nbh|
+      base_reservs = 0
       if nbh.listings.length != 0
-        hash[nbh.id] = nbh.listings.length
+        nbh.listings.each do |nbh_listing|
+          reservs = nbh_listing.reservations.length
+          base_reservs = base_reservs + reservs
+        end
+        hash[nbh.id] = base_reservs 
       end
     end
-    most_listings = hash.values.sort.last
-    find_by(id: hash.key(most_listings))
+    most_reservs = hash.values.sort.last
+    find_by(id: hash.key(most_reservs))
   end
 
 end

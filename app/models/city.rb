@@ -25,7 +25,12 @@ class City < ActiveRecord::Base
   def self.most_res
     hash = {}
     all.each do |city|
-      hash[city.id] = city.listings.length
+      base_reservs = 0
+      city.listings.each do |city_listing|
+        reservs = city_listing.reservations.length
+        base_reservs = base_reservs + reservs
+      end
+      hash[city.id] = base_reservs
     end
     most_listings = hash.values.sort.last
     find_by(id: hash.key(most_listings))

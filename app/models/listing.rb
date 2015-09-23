@@ -5,14 +5,19 @@ class Listing < ActiveRecord::Base
   has_many :reviews, :through => :reservations
   has_many :guests, :class_name => "User", :through => :reservations
   validates :address, :listing_type, :title, :description, :price, :neighborhood_id, presence: true
+  validate :neighborhood_exist
   before_create :set_host
   before_destroy :check_host
 
   def average_review_rating
-    # binding.pry
+    binding.pry
   end
 
   private
+
+  def neighborhood_exist
+    errors.add(:neighborhood_id, "Doesn't exist") unless Neighborhood.exists?(neighborhood_id)
+  end
 
   def set_host
     host.host = true

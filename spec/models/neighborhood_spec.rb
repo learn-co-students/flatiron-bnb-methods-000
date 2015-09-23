@@ -34,10 +34,10 @@ describe Neighborhood do
       it 'knows the neighborhood with the most reservations' do 
         expect(Neighborhood.most_res).to eq(@nabe1)
       end
-      # it "doesn't hardcode the neighborhood with the most reservations" do 
-      #   make_denver
-      #   expect(Neighborhood.most_res).to eq(Neighborhood.find_by(:name => "Lakewood"))
-      # end
+      it "doesn't hardcode the neighborhood with the most reservations" do 
+        make_denver
+        expect(Neighborhood.most_res).to eq(Neighborhood.find_by(:name => "Lakewood"))
+      end
     end 
   end
 end
