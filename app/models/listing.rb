@@ -10,7 +10,7 @@ class Listing < ActiveRecord::Base
   before_destroy :check_host
 
   def average_review_rating
-    binding.pry
+    # write code
   end
 
   private

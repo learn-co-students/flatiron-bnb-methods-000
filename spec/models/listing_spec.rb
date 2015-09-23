@@ -219,8 +219,8 @@ describe Listing do
           neighborhood_id: friendly_manner.id, 
           host_id: host_with_the_most.id)
 
-      reserved1 = Reservation.create(checkin: '2015-09-15', checkout: '2015-09-18', listing_id: listing.id, guest_id: guest_thats_the_best.id)
-      reserved2 = Reservation.create(checkin: '2015-09-19', checkout: '2015-09-21', listing_id: listing.id, guest_id: 6)
+      reserved1 = Reservation.create(checkin: '2015-09-15', checkout: '2015-09-18', listing_id: listing.id, guest_id: guest_thats_the_best.id, status: "accepted")
+      reserved2 = Reservation.create(checkin: '2015-09-19', checkout: '2015-09-21', listing_id: listing.id, guest_id: 6, status: "accepted")
 
       first_review = Review.create(description: "Okish.", rating: 1, guest_id: guest_thats_the_best.id, reservation_id: reserved1.id)
       second_review = Review.create(description: "The 5 mounted moose heads were a bit much.", rating: 2, guest_id: 6, reservation_id: reserved2.id)
