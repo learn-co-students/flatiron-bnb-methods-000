@@ -10,7 +10,11 @@ class Listing < ActiveRecord::Base
   before_destroy :check_host
 
   def average_review_rating
-    # write code
+    rating_sum = 0
+    reviews.each do |review|
+      rating_sum = rating_sum + review.rating
+    end
+    rating_sum / reviews.count.round(2)
   end
 
   private
