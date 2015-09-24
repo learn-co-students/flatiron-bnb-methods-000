@@ -207,20 +207,23 @@ describe Listing do
   end
 
   describe "#average_review_rating" do
-    let(:first_review) { Review.create(rating: 1) }
-    let(:second_review) { Review.create(rating: 2) }
-
     it 'knows its average ratings from its reviews' do
-      listing = Listing.create(address: '123 Main Street',
-          listing_type: "private room",
-          title: "Foo",
-          description: "Foo",
-          price: "150.00",
-          neighborhood: Neighborhood.create, 
-          host: User.create)
+      friendly_manner = Neighborhood.create(name: "Boulevard Hieghts", city_id: City.last.id)
+      host_with_the_most = User.create(name: "The Creator")
+      guest_thats_the_best = User.create(name: "The Consumer")
+      listing = Listing.create(address: '987 Main Street',
+          listing_type: "entire place",
+          title: "Luxury",
+          description: "Cement block hut",
+          price: 150.00,
+          neighborhood_id: friendly_manner.id, 
+          host_id: host_with_the_most.id)
 
-      Reservation.create(review: first_review, listing: listing)
-      Reservation.create(review: second_review, listing: listing)
+      reserved1 = Reservation.create(checkin: '2015-09-15', checkout: '2015-09-18', listing_id: listing.id, guest_id: guest_thats_the_best.id, status: "accepted")
+      reserved2 = Reservation.create(checkin: '2015-09-19', checkout: '2015-09-21', listing_id: listing.id, guest_id: 6, status: "accepted")
+
+      first_review = Review.create(description: "Okish.", rating: 1, guest_id: guest_thats_the_best.id, reservation_id: reserved1.id)
+      second_review = Review.create(description: "The 5 mounted moose heads were a bit much.", rating: 2, guest_id: 6, reservation_id: reserved2.id)
       
       expect(listing.average_review_rating).to eq(1.5)
     end
